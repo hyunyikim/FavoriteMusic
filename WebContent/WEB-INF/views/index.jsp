@@ -4,7 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>My PlayList</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.amber-red.min.css" />
 <style>
 	#div_pageIntroduce {
 		text-align: center;
@@ -23,7 +26,7 @@
 			<div class="mdl-cell mdl-cell--3-col"></div>
 		</div>
 		<div class="mdl-grid">
-			<form id="form_site" method="post" action="">
+			<form id="form_site" method="post" action="index.do">
 				<div class="mdl-cell mdl-cell--2-col"></div>
 				<div class="mdl-cell mdl-cell--3-col">
 					<div class="mdl-grid">
@@ -67,8 +70,11 @@
 			</form>
 		</div>
 	</div>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.amber-red.min.css" />
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script>
+	$('#btn_submit').click(function(){
+		$('#form_site').submit();
+	});
+</script>
 </body>
 </html>

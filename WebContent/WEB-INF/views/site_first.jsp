@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>My PlayList</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.amber-red.min.css" />
 <style>
 	#div_pageIntroduce {
 		text-align: center;
@@ -23,18 +25,18 @@
 			<div class="mdl-cell mdl-cell--3-col"></div>
 		</div>
 		<div class="mdl-grid">
-			<form id="form_site1" method="post" action="">
+			<form id="form_site1" method="post" action="siteFirst.do">
 				<div class="mdl-cell mdl-cell--3-col"></div>	 
 				<div class="mdl-cell mdl-cell--3-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input" type="text" id="site1_id">
-					    <label class="mdl-textfield__label" for="sample3">MELON ID</label>
+					    <input class="mdl-textfield__input" type="text" id="site1_id" name="site1_id">
+					    <label class="mdl-textfield__label" for="sample3"><%=session.getAttribute("site1") %> ID</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--3-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input" type="text" id="site1_pwd">
-					    <label class="mdl-textfield__label" for="sample3">MELON PASSWARD</label>
+					    <input class="mdl-textfield__input" type="password" id="site1_pwd" name="site1_pwd">
+					    <label class="mdl-textfield__label" for="sample3"><%=session.getAttribute("site1") %> PASSWARD</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--3-col">
@@ -43,8 +45,11 @@
 			</form>
 		</div>
 	</div>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.amber-red.min.css" />
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script>
+	$('#btn_submit').click(function(){
+		$('#form_site1').submit();
+	});
+</script>
 </body>
 </html>

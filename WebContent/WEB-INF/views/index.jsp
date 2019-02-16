@@ -22,7 +22,7 @@
 	<div>
 		<div class="mdl-grid">
 			<div class="mdl-cell mdl-cell--3-col"></div>
-			<div class="mdl-cell mdl-cell--6-col" id="div_pageIntroduce">환영합니다!<br>음악 재생 사이트에 구애받지 않고 플레이리스트를 자유롭게 플레이리스트를 옮기세요.</div>
+			<div class="mdl-cell mdl-cell--6-col" id="div_pageIntroduce">환영합니다!<br>음악 재생 사이트에 구애받지 않고 자유롭게 플레이리스트를 즐기세요.</div>
 			<div class="mdl-cell mdl-cell--3-col"></div>
 		</div>
 		<div class="mdl-grid">

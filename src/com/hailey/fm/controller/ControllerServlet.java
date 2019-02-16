@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.hailey.fm.action.Action;
 import com.hailey.fm.action.ActionForward;
 import com.hailey.fm.service.IndexService;
+import com.hailey.fm.service.MusicListService;
 import com.hailey.fm.service.SiteFirstService;
 
 @WebServlet("*.do")
@@ -59,6 +60,13 @@ public class ControllerServlet extends HttpServlet {
 		} else if (url_command.equals("/siteFirst.do")) {
 			try {
 				action = new SiteFirstService();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}  else if (url_command.equals("/musicList.ajax")) {
+			try {
+				action = new MusicListService();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();

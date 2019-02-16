@@ -1,18 +1,17 @@
 package com.hailey.fm.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.hailey.fm.action.Action;
 import com.hailey.fm.action.ActionForward;
@@ -37,14 +36,15 @@ public class SiteFirstService implements Action {
 			urlMatching(request); 		//	site1의 url 매칭(melon -> https://www.melon.com ... ) 
 			loginCheck(request); 		// 	사용자가 입력한 id, pwd 확인
 
-			forward.setRedirect(false); // 얘를 true로 하면 redirect로 간다
-			forward.setPath("/WEB-INF/views/site_first.jsp");
+			forward.setRedirect(false); 
+			// forward.setPath("/WEB-INF/views/site_seond.jsp"); 두번째 사이트 접속 확인 후 주석 풀기
+			forward.setPath("/WEB-INF/views/playlist_first.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return forward;
 	}
+	
 	
 	public void urlMatching(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -89,9 +89,9 @@ public class SiteFirstService implements Action {
 		btn_login.click();
 
 		
-		/*
+		
 		// 마이뮤직으로 이동
-		driver.get(MYMUSIC_URL);
+		driver.get(myMusicUrl);
 
 		// 마이뮤직 플레이리스트 목록 가져오기
 		List<WebElement> albums = driver.findElements(By.className("collection_info72"));
@@ -100,9 +100,10 @@ public class SiteFirstService implements Action {
 			albumList[i] = albums.get(i).findElement(By.tagName("dt")).findElement(By.tagName("a")).getText();
 			System.out.println("album : " + albumList[i]);
 		}
-		*/
-
-		driver.quit();
+		
+		request.setAttribute("albumList", albumList);
+		
+		//driver.quit();
 	}
 
 }

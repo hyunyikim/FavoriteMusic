@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.hailey.vo.MusicVo;
 
@@ -21,6 +23,8 @@ public class FmMain {
 	
 	
 	static WebDriver driver;
+	static ArrayList<MusicVo> musicList = new ArrayList<MusicVo>();
+	
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -50,10 +54,12 @@ public class FmMain {
 		btn_login.click();
 		*/
 		
-		// 마이뮤직으로 이동
-		driver.get(MYMUSIC_URL);
+		// 마이뮤직으로 이동 --> class name menu_bg menu10 으로 클릭해서 이동
+		// driver.get(MYMUSIC_URL);
+		driver.get("https://www.melon.com/mymusic/playlist/mymusicplaylistview_inform.htm?plylstSeq=438106942");
 		
 		// 마이뮤직 플레이리스트 목록 가져오기 
+		/*
 		List<WebElement> albums = driver.findElements(By.className("collection_info72"));
 		String[] albumList = new String[albums.size()];
 		for(int i = 0; i < albums.size(); i++) {
@@ -65,33 +71,41 @@ public class FmMain {
 				break;
 			}
 		}
-		
-		ArrayList<MusicVo> musicList = new ArrayList<MusicVo>();
-		
-		// 처음 한 번 
+		*/
 		
 		
-		WebElement web_pageNum = driver.findElement(By.className("page_num"));
-		List<WebElement> web_pageNumAs = web_pageNum.findElements(By.tagName("a"));
+		addMusic();
+		List<WebElement> web_pageNumAs = selectPageNum();
 		
-		for(WebElement web_pageNumA : web_pageNumAs) {
-			web_pageNumA.click();
+		int pageNumSize = web_pageNumAs.size();
+		int[] page_num = new int[pageNumSize]; 	
+		
+		if(pageNumSize != 0) {
+			for(int i = 0; i < pageNumSize; i++) {		
+				page_num[i] = Integer.parseInt(web_pageNumAs.get(i).getText());
+			}
 			
-			
+			for(int page : page_num) {
+				System.out.println("page : " + page);
+				List<WebElement> web_nextPageAs = selectPageNum();
+				for(WebElement web_pageNumA : web_nextPageAs) {
+					if(page == Integer.parseInt(web_pageNumA.getText())) {
+						web_pageNumA.click();
+						String url = driver.getCurrentUrl();
+						driver.get(url);
+						addMusic();
+						break;
+					}
+				}
+			}
 		}
 		
-		
-		
-		// String album = albums.get(0).findElement(By.tagName("dt")).findElement(By.tagName("a")).getText();
-		
-		
-			
 		// driver.quit();
 	}
 	
-	private void addMusicList() {
+	// 플레이리스트 노래 목록 담기
+	private static void addMusic() {
 		List<WebElement> web_musicList = driver.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-		ArrayList<MusicVo> musicList = new ArrayList<MusicVo>();
 		for(WebElement web_music : web_musicList) {
 			MusicVo musicVo = new MusicVo();
 			String title = web_music.findElement(By.className("fc_gray")).getText();
@@ -102,4 +116,10 @@ public class FmMain {
 			musicList.add(musicVo);
 		}
 	}
+	
+	private static List<WebElement> selectPageNum() {
+		List<WebElement> web_pageNumAs = driver.findElement(By.className("page_num")).findElements(By.tagName("a"));
+		return web_pageNumAs;
+	}
+	
 }
